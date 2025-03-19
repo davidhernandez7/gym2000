@@ -2,7 +2,7 @@ import { PrismaClient } from '@prisma/client';
 import { NextResponse } from 'next/server';
 const prisma = new PrismaClient();
 
-export async function GET(req: Request, context: { params: { id: string } }) {
+/* export async function GET(req: Request, context: { params: { id: string } }) {
   const categoria = await prisma.categoria.findUnique({
     where: { id: Number(context.params.id) },
     include: { productos: true }
@@ -13,7 +13,7 @@ export async function GET(req: Request, context: { params: { id: string } }) {
   }
 
   return NextResponse.json(categoria);
-}
+} */
 
 export async function PUT(req: Request, context: { params: { id: string } }) {
   const body = await req.json();
