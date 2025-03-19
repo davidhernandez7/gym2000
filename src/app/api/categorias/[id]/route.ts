@@ -2,9 +2,9 @@ import { PrismaClient } from '@prisma/client';
 import { NextResponse } from 'next/server';
 const prisma = new PrismaClient();
 
-export async function GET(req: Request, { params }: { params: { id: string } }) {
+export async function GET(req: Request, context: { params: { id: string } }) {
   const categoria = await prisma.categoria.findUnique({
-    where: { id: Number(params.id) },
+    where: { id: Number(context.params.id) },
     include: { productos: true }
   });
 
@@ -15,18 +15,18 @@ export async function GET(req: Request, { params }: { params: { id: string } }) 
   return NextResponse.json(categoria);
 }
 
-export async function PUT(req: Request, { params }: { params: { id: string } }) {
+export async function PUT(req: Request, context: { params: { id: string } }) {
   const body = await req.json();
   const categoria = await prisma.categoria.update({
-    where: { id: Number(params.id) },
+    where: { id: Number(context.params.id) },
     data: body,
   });
   return NextResponse.json(categoria);
 }
 
-export async function DELETE(req: Request, { params }: { params: { id: string } }) {
+export async function DELETE(req: Request, context: { params: { id: string } }) {
   await prisma.categoria.delete({
-    where: { id: Number(params.id) },
+    where: { id: Number(context.params.id) },
   });
   return NextResponse.json({ message: 'Categoría eliminada' });
 }
